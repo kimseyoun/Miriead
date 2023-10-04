@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * 컴포넌트에 이미지를 올리는 클래스
  */
 
-class ImagePanel extends JPanel { // 이미지 클래스 (ImagePanel이 JPanel을 상속받음)
+public class ImagePanel extends JPanel { // 이미지 클래스 (ImagePanel이 JPanel을 상속받음)
 	private Image img;
 
 	public ImagePanel(Image img) {
