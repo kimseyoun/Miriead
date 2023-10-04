@@ -5,5 +5,7 @@ package setting;
  */
 
 public class Setting {
-
+	static void initDB() throws Exception {
+		
+	}
 }
