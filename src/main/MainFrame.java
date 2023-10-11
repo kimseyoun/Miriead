@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import common.ImagePanel;
+import join.JoinFrame;
+import question.QuestionFrame;
 
 public class MainFrame extends JFrame {
 	
@@ -22,7 +24,6 @@ public class MainFrame extends JFrame {
         
         ImagePanel mainFrameImg = new ImagePanel(new ImageIcon("./image/시작화면.png").getImage());
         mainFrameImg.setLayout(null);
-        // add(mainFrameImg);
         
         JTextField idField = new JTextField();
         idField.setBounds(300, 277, 280, 60); // 위치와 크기 설정
@@ -49,8 +50,10 @@ public class MainFrame extends JFrame {
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("로그인 버튼 클릭");
                 // 입력한 id와 pw값이 db에 존재하는지 확인하는 코드 작성하기
+                
+                new QuestionFrame().setVisible(true);
+                setVisible(false);
             }
         });
         
@@ -64,7 +67,7 @@ public class MainFrame extends JFrame {
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("회원가입 버튼 클릭");
+                new JoinFrame();
             }
         });
         
