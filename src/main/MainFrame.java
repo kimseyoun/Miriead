@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import common.ImagePanel;
 import join.JoinFrame;
 import question.QuestionFrame;
+import home.HomeFrame;
 
 public class MainFrame extends JFrame {
 	
@@ -52,7 +53,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // 입력한 id와 pw값이 db에 존재하는지 확인하는 코드 작성하기
                 
-                new QuestionFrame().setVisible(true);
+                new HomeFrame().setVisible(true);
                 setVisible(false);
             }
         });

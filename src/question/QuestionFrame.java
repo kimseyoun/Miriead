@@ -16,7 +16,7 @@ public class QuestionFrame extends JFrame {
 	
 	public QuestionFrame() {
 		setTitle("질문 화면");
-		setSize(1000, 720);
+		setSize(1015, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         ImagePanel questionFrameImg = new ImagePanel(new ImageIcon("./image/질문화면.png").getImage());

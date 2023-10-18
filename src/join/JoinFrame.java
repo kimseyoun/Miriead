@@ -46,8 +46,4 @@ public class JoinFrame extends JFrame {
 
         frame.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new JoinFrame();
-    }
 }
