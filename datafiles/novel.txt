@@ -1,0 +1,2 @@
+novel_id	novel_title	novel_author	novel_school	novel_page	novel_type	novel_strory
+1	거북이	작가토끼	1	365	역사	거북이가 열심히 토끼를 잡으러 가는 이야기
