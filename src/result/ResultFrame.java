@@ -18,7 +18,18 @@ import home.HomeFrame;
  * 책 추천 결과 화면 클래스
  */
 
-public class ResultFrame {
+public class ResultFrame extends JFrame {
+	public ResultFrame() {
+		setTitle("결과 화면");
+		setSize(1000, 720);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		ImagePanel resultFrameImg = new ImagePanel(new ImageIcon("./image/결과화면.png").getImage());
+        resultFrameImg.setLayout(null);
+	}
+}
+
+/* public class ResultFrame {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setSize(1000, 720);
@@ -91,4 +102,4 @@ public class ResultFrame {
     private static void add(ImagePanel joinImg) {
        
     }
-}
+} */
