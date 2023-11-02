@@ -1,21 +1,28 @@
 package home;
 
-import javax.swing.*;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import common.ImagePanel;
 import question.QuestionFrame;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * 홈 화면 클래스
  */
 
 public class HomeFrame extends JFrame {
+	private String userName;
 	
-	public HomeFrame() {
+	public HomeFrame(String userName) {
+		this.userName = userName;
+		
 		setTitle("홈 화면");
 		setSize(1000, 720);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,13 +44,14 @@ public class HomeFrame extends JFrame {
             }
         });
         
-        JLabel nameLbl = new JLabel("OOO 님");
+        JLabel nameLbl = new JLabel(userName + " 님");
         nameLbl.setFont(new Font("", Font.BOLD, 25));
         nameLbl.setBounds(705, 190, 100, 100);
         homeFrameImg.add(nameLbl);
         
         
         add(homeFrameImg);
+        
 	}
 	
 }

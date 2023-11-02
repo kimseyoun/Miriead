@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import common.ImagePanel;
 import main.MainFrame;
+import common.CommonFrame;
 
 public class JoinFrame extends JFrame {
 
@@ -31,7 +32,19 @@ public class JoinFrame extends JFrame {
         joinButton.setBounds(400, 570, 205, 80);
         joinButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("가입이 완료되었습니다");
+            	String enteredID = idTextBox.getText();
+                String enteredPassword = passwordTextBox.getText();
+
+                // 데이터베이스에 새 사용자 정보 추가
+                boolean registrationSuccessful = registerNewUser(enteredID, enteredPassword);
+
+                if (registrationSuccessful) {
+                    System.out.println("가입이 완료되었습니다");
+                    frame.dispose();
+                } else {
+                    System.out.println("가입 실패: 이미 존재하는 ID 또는 오류 발생");
+                    // 오류 메시지 또는 처리 실패 메시지 표시
+                }
                 
                 frame.dispose();
             }
@@ -46,4 +59,12 @@ public class JoinFrame extends JFrame {
 
         frame.setVisible(true);
     }
+    
+    private boolean registerNewUser(String id, String password) {
+        // CommonFrame 클래스의 updateSQL 메서드를 사용하여 사용자를 데이터베이스에 등록
+        String insertQuery = "INSERT INTO user (user_identi, user_pw) VALUES (?, ?)";
+        CommonFrame.updateSQL(insertQuery, id, password);
+        return true; // 성공 또는 실패 여부를 확인할 수 있는 방법으로 업데이트
+    }
+    
 }
