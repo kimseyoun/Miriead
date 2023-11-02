@@ -18,11 +18,13 @@ import javax.swing.JTextField;
 import common.ImagePanel;
 import join.JoinFrame;
 import question.QuestionFrame;
+import user.User;
 import home.HomeFrame;
 import common.CommonFrame;
 
 public class MainFrame extends JFrame {
 	private List<String> data;
+	private User currentUser; // 사용자 객체 추가
 	
 	public MainFrame() {
         setTitle("Miriead");
@@ -79,12 +81,13 @@ public class MainFrame extends JFrame {
                     String storedPW = userData.get(i + 1);
                     if (storedID.equals(enteredID) && storedPW.equals(enteredPW)) {
                         loginSuccessful = true;
+                        currentUser = new User(enteredID, enteredPW);
                         break;
                     }
                 }
 
                 if (loginSuccessful) {
-                	new HomeFrame(enteredID).setVisible(true);
+                	new HomeFrame(currentUser).setVisible(true);
                     setVisible(false);
                 } else {
                     System.out.println("로그인 실패: 올바르지 않은 ID 또는 비밀번호");
