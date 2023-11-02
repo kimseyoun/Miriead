@@ -12,16 +12,18 @@ import javax.swing.JLabel;
 
 import common.ImagePanel;
 import question.QuestionFrame;
+import user.User;
 
 /**
  * 홈 화면 클래스
  */
 
 public class HomeFrame extends JFrame {
-	private String userName;
+	private User currentUser;
+	// private String userName;
 	
-	public HomeFrame(String userName) {
-		this.userName = userName;
+	public HomeFrame(User user) {
+		this.currentUser = user;
 		
 		setTitle("홈 화면");
 		setSize(1000, 720);
@@ -44,11 +46,10 @@ public class HomeFrame extends JFrame {
             }
         });
         
-        JLabel nameLbl = new JLabel(userName + " 님");
+        JLabel nameLbl = new JLabel(currentUser.getId() + " 님");
         nameLbl.setFont(new Font("", Font.BOLD, 25));
         nameLbl.setBounds(705, 190, 100, 100);
         homeFrameImg.add(nameLbl);
-        
         
         add(homeFrameImg);
         
