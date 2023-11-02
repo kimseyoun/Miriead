@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,8 +19,10 @@ import common.ImagePanel;
 import join.JoinFrame;
 import question.QuestionFrame;
 import home.HomeFrame;
+import common.CommonFrame;
 
 public class MainFrame extends JFrame {
+	private List<String> data;
 	
 	public MainFrame() {
         setTitle("Miriead");
@@ -52,9 +58,38 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 입력한 id와 pw값이 db에 존재하는지 확인하는 코드 작성하기
+            	
+//            	data = CommonFrame.getColumnDataFromTable("novel", "novel_title");
+//
+//                // 데이터 출력
+//                for (String title : data) {
+//                    System.out.println(title);
+//                }
+            	
+            	String enteredID = idField.getText();
+                String enteredPW = pwField.getText();
+
+                // 데이터베이스에서 사용자 정보 가져오기
+                List<String> userData = CommonFrame.getColumnDataFromTable("user", "user_identi", "user_pw");
+
+                // 데이터베이스에서 사용자 정보와 입력한 정보 비교
+                boolean loginSuccessful = false;
+                for (int i = 0; i < userData.size(); i += 2) {
+                    String storedID = userData.get(i);
+                    String storedPW = userData.get(i + 1);
+                    if (storedID.equals(enteredID) && storedPW.equals(enteredPW)) {
+                        loginSuccessful = true;
+                        break;
+                    }
+                }
+
+                if (loginSuccessful) {
+                	new HomeFrame(enteredID).setVisible(true);
+                    setVisible(false);
+                } else {
+                    System.out.println("로그인 실패: 올바르지 않은 ID 또는 비밀번호");
+                }
                 
-                new HomeFrame().setVisible(true);
-                setVisible(false);
             }
         });
         
@@ -74,6 +109,7 @@ public class MainFrame extends JFrame {
         
         add(mainFrameImg);
     }
+	
 
 	public static void main(String[] args) {
 		MainFrame frame = new MainFrame();
