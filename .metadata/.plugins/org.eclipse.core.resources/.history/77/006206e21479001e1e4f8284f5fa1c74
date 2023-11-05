@@ -1,0 +1,71 @@
+package join;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import common.ImagePanel;
+import main.MainFrame;
+import common.CommonFrame;
+
+public class JoinFrame extends JFrame {
+
+    public JoinFrame() {
+        JFrame frame = new JFrame();
+        frame.setSize(1000, 720);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        ImagePanel JoinImg = new ImagePanel(new ImageIcon("image/가입화면.png").getImage());
+        frame.setContentPane(JoinImg);
+
+        JTextField idTextBox = new JTextField();
+        idTextBox.setBounds(300, 240, 420, 75);
+        idField.setFont(new Font("SansSerif", Font.PLAIN, 18)); // 폰트 설정
+        idTextBox.setOpaque(false);
+        idTextBox.setBorder(null);
+
+        JTextField passwordTextBox = new JTextField();
+        passwordTextBox.setBounds(300, 440, 410, 75);
+        passwordTextBox.setOpaque(false);
+        passwordTextBox.setBorder(null);
+
+        JButton joinButton = new JButton();
+        joinButton.setBounds(400, 570, 205, 80);
+        joinButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	String enteredID = idTextBox.getText();
+                String enteredPassword = passwordTextBox.getText();
+
+                // 데이터베이스에 새 사용자 정보 추가
+                boolean registrationSuccessful = registerNewUser(enteredID, enteredPassword);
+
+                if (registrationSuccessful) {
+                    System.out.println("가입이 완료되었습니다");
+                    frame.dispose();
+                } else {
+                    System.out.println("가입 실패: 이미 존재하는 ID 또는 오류 발생");
+                    // 오류 메시지 또는 처리 실패 메시지 표시
+                }
+                
+                frame.dispose();
+            }
+        });
+        joinButton.setOpaque(false);
+        joinButton.setContentAreaFilled(false);
+        joinButton.setBorderPainted(false);
+
+        frame.add(joinButton);
+        frame.add(idTextBox);
+        frame.add(passwordTextBox);
+
+        frame.setVisible(true);
+    }
+    
+    private boolean registerNewUser(String id, String password) {
+        // CommonFrame 클래스의 updateSQL 메서드를 사용하여 사용자를 데이터베이스에 등록
+        String insertQuery = "INSERT INTO user (user_identi, user_pw) VALUES (?, ?)";
+        CommonFrame.updateSQL(insertQuery, id, password);
+        return true; // 성공 또는 실패 여부를 확인할 수 있는 방법으로 업데이트
+    }
+    
+}

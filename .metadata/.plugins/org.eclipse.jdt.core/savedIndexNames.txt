@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\seyeon\Documents\Miriead\.metadata\.plugins\org.eclipse.jdt.core
+3499462273.index
+2894843331.index
+1865797976.index
