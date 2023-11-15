@@ -61,6 +61,7 @@ public class JoinFrame extends JFrame {
         frame.add(idTextBox);
         frame.add(pwTextBox);
 
+        setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     

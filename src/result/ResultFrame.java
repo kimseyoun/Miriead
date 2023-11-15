@@ -26,6 +26,8 @@ public class ResultFrame extends JFrame {
 		
 		ImagePanel resultFrameImg = new ImagePanel(new ImageIcon("./image/결과화면.png").getImage());
         resultFrameImg.setLayout(null);
+        setLocationRelativeTo(null);
+        setVisible(true);
 	}
 }
 
