@@ -51,6 +51,7 @@ public class HomeFrame extends JFrame {
         nameLbl.setBounds(705, 190, 100, 100);
         homeFrameImg.add(nameLbl);
         
+        setLocationRelativeTo(null);
         add(homeFrameImg);
         
 	}

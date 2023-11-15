@@ -13,6 +13,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import common.ImagePanel;
@@ -41,7 +43,7 @@ public class MainFrame extends JFrame {
         idField.setFont(new Font("SansSerif", Font.PLAIN, 18)); // 폰트 설정
         mainFrameImg.add(idField);
         
-        JTextField pwField = new JTextField();
+        JTextField pwField = new JPasswordField();
         pwField.setBounds(300, 377, 280, 60);
         pwField.setBorder(BorderFactory.createEmptyBorder());
         pwField.setOpaque(false);
@@ -87,10 +89,11 @@ public class MainFrame extends JFrame {
                 }
 
                 if (loginSuccessful) {
+                	JOptionPane.showMessageDialog(null, "로그인 되었습니다");
                 	new HomeFrame(currentUser).setVisible(true);
                     setVisible(false);
                 } else {
-                    System.out.println("로그인 실패: 올바르지 않은 ID 또는 비밀번호");
+                	JOptionPane.showMessageDialog(null, "올바르지 않은 ID 또는 비밀번호입니다. 다시 입력해주세요.");
                 }
                 
             }
@@ -110,6 +113,7 @@ public class MainFrame extends JFrame {
             }
         });
         
+        setLocationRelativeTo(null);
         add(mainFrameImg);
     }
 	
