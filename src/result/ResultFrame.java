@@ -1,107 +1,99 @@
 package result;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
+import common.CommonFrame;
 import common.ImagePanel;
-import home.HomeFrame;
 
 /**
  * 책 추천 결과 화면 클래스
  */
 
 public class ResultFrame extends JFrame {
-	public ResultFrame() {
+	List<Integer> results = new ArrayList<>();
+
+	public ResultFrame(String selectedGenre, String selectedSubGenre, String selectedPage, int selectedSchool) {
 		setTitle("결과 화면");
 		setSize(1000, 720);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
+		System.out.println("장르: " + selectedGenre);
+		System.out.println("서브장르: " + selectedSubGenre);
+		System.out.println("쪽수: " + selectedPage);
+		System.out.println("학교보유여부: " + selectedSchool);
+
 		ImagePanel resultFrameImg = new ImagePanel(new ImageIcon("./image/결과화면.png").getImage());
-        resultFrameImg.setLayout(null);
-        setLocationRelativeTo(null);
-        setVisible(true);
+		resultFrameImg.setLayout(null);
+
+		results = resultBook(selectedGenre, selectedSubGenre, selectedPage, selectedSchool);
+
+		displayResults();
+
+		add(resultFrameImg);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+
+	private List<Integer> resultBook(String selectedGenre, String selectedSubGenre, String selectedPage,
+			int selectedSchool) {
+		List<Integer> resultList = new ArrayList<>();
+
+		String checkQuery = "SELECT * FROM " + selectedGenre + " WHERE " + selectedGenre
+				+ "_type = ? AND " + selectedGenre + "_page " + selectedPage + " AND " + selectedGenre + "_school = ?";
+
+		ResultSet resultSet = CommonFrame.getResult(checkQuery, selectedSubGenre, selectedSchool);
+
+		// System.out.println("실행 쿼리문: " + checkQuery);
+		// System.out.println("결과 집합: " + resultSet);
+
+		try {
+			while (resultSet.next()) {
+				// 결과에서 각 컬럼에 대한 데이터를 가져와 출력하거나 다른 작업을 수행할 수 있습니다.
+				 String title = resultSet.getString(selectedGenre + "_title");
+				 String author = resultSet.getString(selectedGenre + "_author");
+				 int page = resultSet.getInt(selectedGenre + "_page");
+				 int school = resultSet.getInt(selectedGenre + "_school");
+				// 여기에 다른 컬럼들에 대한 데이터를 가져와서 출력하거나 원하는 작업을 수행할 수 있습니다.
+
+				// String result = "책 제목: " + title + ", 작가: " + author + ", 쪽수: " + page + ",
+				// 학교보유여부: " + school;
+
+				int result = resultSet.getInt(selectedGenre + "_id");
+				System.out.println("결과: " + result);
+				resultList.add(result);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close(); // ResultSet 닫기
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		System.out.println("Result List Size: " + resultList.size()); // 디버깅 메시지
+
+		return resultList;
+	}
+
+	private void displayResults() {
+		if (results.isEmpty()) {
+			System.out.println("검색 결과가 없습니다.");
+		} else {
+			System.out.println("검색 결과:");
+			for (int result : results) {
+				System.out.println(result);
+			}
+		}
 	}
 }
-
-/* public class ResultFrame {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setSize(1000, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        ImagePanel ResultImg = new ImagePanel(new ImageIcon("image/결과화면.png").getImage());
-        frame.setContentPane(ResultImg);
-        add(ResultImg);
-
-        JTextField titleTextBox = new JTextField();
-        titleTextBox.setBounds(140, 60, 800, 50);
-        titleTextBox.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        titleTextBox.setOpaque(false);
-        titleTextBox.setBorder(null);
-
-        JTextField writerTextBox = new JTextField();
-        writerTextBox.setBounds(140,120, 800, 50);
-        writerTextBox.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        writerTextBox.setOpaque(false);
-        writerTextBox.setBorder(null);
-
-        JTextField pageTextBox = new JTextField();
-        pageTextBox.setBounds(140, 180, 800, 50);
-        pageTextBox.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        pageTextBox.setOpaque(false);
-        pageTextBox.setBorder(null);
-
-        JTextField schoolTextBox = new JTextField();
-        schoolTextBox.setBounds(270, 240, 200, 50);
-        schoolTextBox.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        schoolTextBox.setOpaque(false);
-        schoolTextBox.setBorder(null); 
-        //줄거리 보기 버튼
-        JButton stroyBtn = new JButton();
-        stroyBtn.setBounds(640, 410, 280, 100);
-        stroyBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String story = "이 책의 줄거리는 어쩌구";  //디비연결할때는 지우고 다르게 해야함
-                JOptionPane.showMessageDialog(null,story, "줄거리", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-        stroyBtn.setOpaque(false);
-        stroyBtn.setContentAreaFilled(false);
-        stroyBtn.setBorderPainted(false);
-
-        
-        //메인으로 돌아가기 버튼
-        JButton homebackBtn = new JButton();
-        homebackBtn.setBounds(640, 555, 280, 100);
-        homebackBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                new HomeFrame().setVisible(true);
-            }
-        });
-        homebackBtn.setOpaque(false);
-        homebackBtn.setContentAreaFilled(false);
-        homebackBtn.setBorderPainted(false);
-
-        frame.add(homebackBtn);
-        frame.add(stroyBtn);
-        frame.add(titleTextBox);
-        frame.add(writerTextBox);
-        frame.add(pageTextBox);
-        frame.add(schoolTextBox);
-
-        frame.setVisible(true);
-    }
-
-    private static void add(ImagePanel joinImg) {
-       
-    }
-} */

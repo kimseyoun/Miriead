@@ -34,6 +34,8 @@ public class CommonFrame {
 				pstmt.setObject(i + 1, p[i]);
 			}
 			
+			System.out.println("실행 쿼리문: " + pstmt.toString());
+			
 			return pstmt.executeQuery();
 			
 		} catch (SQLException e) {
