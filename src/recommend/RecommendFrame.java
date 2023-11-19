@@ -1,4 +1,4 @@
-package recommand;
+package recommend;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,16 +20,16 @@ import javax.swing.JTextField;
 import common.CommonFrame;
 import common.ImagePanel;
 
-public class RecommandFrame extends JFrame {
+public class RecommendFrame extends JFrame {
 	String selectedValue; // 선택한 장르값 변수
 	
-	public RecommandFrame() {
+	public RecommendFrame() {
 		setTitle("책 추천하기");
 		setSize(1000, 720);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		ImagePanel recommandFrameImg = new ImagePanel(new ImageIcon("./image/책추천화면.png").getImage());
-		recommandFrameImg.setLayout(null);
+		ImagePanel recommendFrameImg = new ImagePanel(new ImageIcon("./image/책추천화면.png").getImage());
+		recommendFrameImg.setLayout(null);
 		
 		Map<String, String> genreMap = new LinkedHashMap<String, String>();
 		genreMap.put("소설", "novel");
@@ -63,22 +63,22 @@ public class RecommandFrame extends JFrame {
 		authorTextBox.setOpaque(false);
 		authorTextBox.setBorder(null);
 		
-		JButton recommandBtn = new JButton();
-		recommandBtn.setBounds(400, 570, 205, 80);
-		recommandBtn.setOpaque(false);
-		recommandBtn.setBorder(BorderFactory.createEmptyBorder());
-		recommandBtn.setBackground(new Color(30, 144, 255));
+		JButton recommendBtn = new JButton();
+		recommendBtn.setBounds(400, 570, 205, 80);
+		recommendBtn.setOpaque(false);
+		recommendBtn.setBorder(BorderFactory.createEmptyBorder());
+		recommendBtn.setBackground(new Color(30, 144, 255));
 		
-		recommandBtn.addActionListener(new ActionListener() {
+		recommendBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String enteredTitle = titleTextBox.getText();
 				String enteredAuthor = authorTextBox.getText();
 				
-				boolean recommandSuccessful = recommandNewBook(selectedValue, enteredTitle, enteredAuthor);
+				boolean recommendSuccessful = recommendNewBook(selectedValue, enteredTitle, enteredAuthor);
 				
-				if(recommandSuccessful) {
+				if(recommendSuccessful) {
 					JOptionPane.showMessageDialog(null, "도서 추천 등록이 완료되었습니다");
 				} else {
 					JOptionPane.showMessageDialog(null, "이미 등록된 도서입니다");
@@ -91,14 +91,14 @@ public class RecommandFrame extends JFrame {
 		add(genreBox);
 		add(titleTextBox);
 		add(authorTextBox);
-		add(recommandBtn);
+		add(recommendBtn);
 		
 		setLocationRelativeTo(null);
-		add(recommandFrameImg);
+		add(recommendFrameImg);
 		
 	}
 	
-	private boolean recommandNewBook(String genre, String title, String author) {
+	private boolean recommendNewBook(String genre, String title, String author) {
 		String checkQuery = "SELECT * FROM " + genre + " WHERE " + genre + "_title = ? AND " + genre + "_author = ?";
 		ResultSet resultSet = CommonFrame.getResult(checkQuery, title, author);
 		
@@ -106,7 +106,7 @@ public class RecommandFrame extends JFrame {
 			if(resultSet.next()) {
 				return false;
 			} else {
-				String insertQuery = "INSERT INTO recommand (recommand_title, recommand_author, recommand_genre) VALUES (?, ?, ?)";
+				String insertQuery = "INSERT INTO recommend (recommend_title, recommend_author, recommend_genre) VALUES (?, ?, ?)";
 				CommonFrame.updateSQL(insertQuery, title, author, genre);
 				return true;
 			}

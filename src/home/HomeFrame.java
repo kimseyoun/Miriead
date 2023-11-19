@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 import common.ImagePanel;
 import question.QuestionFrame;
-import recommand.RecommandFrame;
+import recommend.RecommendFrame;
 import user.User;
 
 /**
@@ -56,7 +56,7 @@ public class HomeFrame extends JFrame {
         
         recommandBookBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new RecommandFrame().setVisible(true);
+                new RecommendFrame().setVisible(true);
                 //setVisible(false);
             }
         });
