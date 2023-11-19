@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -19,7 +16,6 @@ import javax.swing.JTextField;
 
 import common.ImagePanel;
 import join.JoinFrame;
-import question.QuestionFrame;
 import user.User;
 import home.HomeFrame;
 import common.CommonFrame;

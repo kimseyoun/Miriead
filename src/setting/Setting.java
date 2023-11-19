@@ -74,6 +74,14 @@ public class Setting {
 				+ "  PRIMARY KEY (`essay_id`));\r\n"
 				+ "");
 		
+		stmt.execute("CREATE TABLE `miriead`.`recommend` (\r\n"
+				+ "  `recommend_id` INT NOT NULL AUTO_INCREMENT,\r\n"
+				+ "  `recommend_title` VARCHAR(100) NULL,\r\n"
+				+ "  `recommend_author` VARCHAR(50) NULL,\r\n"
+				+ "  `recommend_genre`  VARCHAR(20) NULL,\r\n"
+				+ "  PRIMARY KEY (`recommend_id`));\r\n"
+				+ "");
+		
 		stmt.execute("USE `miriead`");
 		
 		stmt.execute("LOAD DATA LOCAL INFILE 'datafiles/novel.txt'"
