@@ -14,12 +14,12 @@ import common.CommonFrame;
 public class JoinFrame extends JFrame {
 
     public JoinFrame() {
-        JFrame frame = new JFrame();
-        frame.setSize(1000, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("회원가입");
+        setSize(1000, 720);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ImagePanel JoinImg = new ImagePanel(new ImageIcon("image/가입화면.png").getImage());
-        frame.setContentPane(JoinImg);
+        setContentPane(JoinImg);
 
         JTextField idTextBox = new JTextField();
         idTextBox.setBounds(300, 230, 420, 75);
@@ -45,24 +45,24 @@ public class JoinFrame extends JFrame {
 
                 if (registrationSuccessful) {
                     System.out.println("가입이 완료되었습니다");
-                    frame.dispose();
+                    dispose();
                 } else {
                     System.out.println("가입 실패: 이미 존재하는 ID 또는 오류 발생");
                 }
                 
-                frame.dispose();
+                dispose();
             }
         });
         joinButton.setOpaque(false);
         joinButton.setContentAreaFilled(false);
         joinButton.setBorderPainted(false);
 
-        frame.add(joinButton);
-        frame.add(idTextBox);
-        frame.add(pwTextBox);
+        add(joinButton);
+        add(idTextBox);
+        add(pwTextBox);
 
         setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setVisible(true);
     }
     
     
@@ -81,7 +81,6 @@ public class JoinFrame extends JFrame {
                 // 새로운 사용자를 데이터베이스에 등록
                 String insertQuery = "INSERT INTO user (user_identi, user_pw) VALUES (?, ?)";
                 CommonFrame.updateSQL(insertQuery, id, password);
-                System.out.println("가입이 완료되었습니다");
                 return true;
             }
         } catch (SQLException e) {
