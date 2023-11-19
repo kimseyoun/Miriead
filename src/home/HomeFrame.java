@@ -1,5 +1,6 @@
 package home;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 
 import common.ImagePanel;
 import question.QuestionFrame;
+import recommand.RecommandFrame;
 import user.User;
 
 /**
@@ -20,7 +22,6 @@ import user.User;
 
 public class HomeFrame extends JFrame {
 	private User currentUser;
-	// private String userName;
 	
 	public HomeFrame(User user) {
 		this.currentUser = user;
@@ -32,17 +33,31 @@ public class HomeFrame extends JFrame {
 		ImagePanel homeFrameImg = new ImagePanel(new ImageIcon("./image/메인화면.png").getImage());
         homeFrameImg.setLayout(null);
         
-        JButton recommandBookBtn = new JButton();
-        recommandBookBtn.setBounds(120, 292, 270, 100); // 
-        recommandBookBtn.setOpaque(false); // 버튼의 배경을 투명하게 설정
-        recommandBookBtn.setContentAreaFilled(false); // 내용 영역 채우기 안함
-        recommandBookBtn.setBorderPainted(false); // 테두리 없음
+        JButton recommandedBookBtn = new JButton(); // 책 추천받기 버튼
+        recommandedBookBtn.setBounds(120, 244, 270, 100);
+        recommandedBookBtn.setOpaque(false); // 버튼의 배경을 투명하게 설정
+        recommandedBookBtn.setContentAreaFilled(false); // 내용 영역 채우기 안함
+        recommandedBookBtn.setBorderPainted(false); // 테두리 없음
+        homeFrameImg.add(recommandedBookBtn);
+        
+        JButton recommandBookBtn = new JButton(); // 책 추천하기 버튼
+        recommandBookBtn.setBounds(120, 376, 270, 100);
+        recommandBookBtn.setOpaque(false);
+        recommandBookBtn.setContentAreaFilled(false);
+        recommandBookBtn.setBorderPainted(false);
         homeFrameImg.add(recommandBookBtn);
         
-        recommandBookBtn.addActionListener(new ActionListener() {
+        recommandedBookBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new QuestionFrame().setVisible(true);
                 setVisible(false);
+            }
+        });
+        
+        recommandBookBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new RecommandFrame().setVisible(true);
+                //setVisible(false);
             }
         });
         
